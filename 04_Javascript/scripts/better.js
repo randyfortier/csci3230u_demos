@@ -37,6 +37,14 @@ window.onload = function() {
   console.log(sortedGrades);
   log('Worst grade: ' + Math.floor(sortedGrades[0]));
 
+  var student = {sid: '100200300',
+                 firstName: 'Roberta',
+                 lastName: 'Jones',
+                 gpa: 3.75,
+                 grades: ['A+', 'B-', 'A-', 'B+']};
+ console.log('Roberta has a GPA of ' + student.gpa);
+ console.log('Roberta has a last name of ' + student['lastName']);
+
   var sayHiButton = document.getElementById('sayHi');
   sayHiButton.onclick = sayHi;
 };
