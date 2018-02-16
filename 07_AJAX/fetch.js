@@ -53,16 +53,24 @@ window.onload = function() {
       .then((resp) => resp.text())
       .then(function(data) {
         var xmlData = parseXML(data);
-        // TODO:  Grab the values
-        
+
+        var person = xmlData.getElementsByTagName('person')[0];
+        var firstNameVal = person.getAttribute('firstName');
+        var lastNameVal = person.getAttribute('lastName');
+
         var firstName = document.getElementById('xmlFirstName');
         var lastName = document.getElementById('xmlLastName');
 
-        firstName.setAttribute('value', data.firstName);
-        lastName.setAttribute('value', data.lastName);
+        firstName.setAttribute('value', firstNameVal);
+        lastName.setAttribute('value', lastNameVal);
       })
       .catch(function(error) {
         console.log(error);
       });
   };
 };
+
+function parseXML(xmlText) {
+  var parser = new window.DOMParser();
+  return parser.parseFromString(xmlText, "text/xml");
+}
