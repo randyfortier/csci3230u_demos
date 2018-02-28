@@ -1,0 +1,14 @@
+{
+  "name": "helloworld",
+  "version": "0.9.0",
+  "description": "This is just to test out node and express",
+  "main": "helloworld.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
