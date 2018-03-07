@@ -34,4 +34,7 @@ This repository is meant to be a place where students can access demos done in t
 
 ## 08 - Node.js
 
+- hello world demo for Node.js
 - demo of basic routing and use of npm and package.json
+- demo of templating in Node.js using Pug
+- demo of handling forms and sessions in Node.js
