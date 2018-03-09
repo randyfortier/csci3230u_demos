@@ -1,0 +1,28 @@
+extends layout
+block content
+  h1= title
+
+  div= errorMessage
+
+  form(action='/processRegistration',
+       method='post',
+       class='form-horizontal')
+
+    label(class='control-label col-md-1', for='username') Username:
+    div(class='col-md-4 form-group')
+      input(type='text',
+            id='username',
+            name='username',
+            placeholder='Username',
+            class='form-control')
+
+    label(class='control-label col-md-1', for='pwd') Password:
+    div(class='col-md-4 form-group')
+      input(type='password',
+            id='pwd',
+            name='pwd',
+            placeholder='Password',
+            class='form-control')
+
+    div(class='col-md-offset-1 col-md-1')
+      button(type='submit', class='btn btn-primary') Sign Up

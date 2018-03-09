@@ -41,9 +41,13 @@ html
 						if (!username || (username === ''))
 							li
 								a(href="/login") Login
+							li
+								a(href="/register") Sign Up
 						else
 							li
 								a(href="/profile") Profile
+							li
+								a(href="/logout") Log Out
 
 	body
 		block content

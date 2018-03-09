@@ -25,6 +25,17 @@ app.use(session({
   secret: 'apollo slackware prepositional expectations'
 }));
 
+// utility code
+var usernames = [];
+function userExists(toFind) {
+  for (var i = 0; i < usernames.length; i++) {
+    if (usernames[i] === toFind) {
+      return true;
+    }
+  }
+  return false;
+}
+
 // routes
 app.get('/basic', function(request, response) {
   response.render('basic', {title: 'Testing',
@@ -53,21 +64,46 @@ app.get('/students', function(request, response) {
                                students: studentList});
 });
 
+app.get('/register', function(request, response) {
+  response.render('register', {title: 'Register'});
+});
+
+app.post('/processRegistration', function(request, response) {
+  var username = request.body.username;
+  var password = request.body.pwd;
+
+  if (userExists(username)) {
+    response.render('register', {title: 'Register',
+                                 errorMessage: 'Username in use'});
+  } else {
+    usernames.push(username);
+
+    request.session.username = username;
+
+    response.render('registrationSuccess', {username: username,
+                                            title: 'Welcome aboard!'});
+  }
+
+});
+
 app.get('/login', function(request, response) {
-  response.render('login', {title: 'Please Log In'});
+  response.render('login', {title: 'Please Log In',
+                            errorMessage: ''});
 });
 
 app.post('/processLogin', function(request, response) {
   var username = request.body.username;
   var password = request.body.pwd;
 
-  if (username === 'admin') {
+  if (userExists(username)) {
     // login success
     request.session.username = username;
-    response.send('Login success!');
+    response.render('loginSuccess', {username: username,
+                                     title: 'Login Success'});
   } else {
     // Login failed
-    response.send('Login failed!');
+    response.render('login', {title: 'Please Log In',
+                              errorMessage: 'Login Incorrect'});
   }
 });
 
