@@ -1,0 +1,21 @@
+{
+  "name": "templating",
+  "version": "1.0.0",
+  "description": "",
+  "main": "savingdata.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.10",
+    "pug": "^2.0.0",
+    "uuid": "^3.2.1"
+  }
+}

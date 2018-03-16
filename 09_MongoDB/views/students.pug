@@ -1,0 +1,23 @@
+extends layout
+block content
+  h1= title
+  if (errorMessage)
+    div= errorMessage
+  table(class="table")
+    tr
+      th SID
+      th First Name
+      th Last Name
+      th GPA
+      th Action
+    each student in students
+      tr
+        td= student.sid
+        td= student.firstName
+        td= student.lastName
+        td= student.gpa
+        td
+          form(action='/deleteStudent', method='post', class='form-inline')
+            div(class='form-group')
+              input(type='hidden', name='sid', value=student.sid, class='form-control')
+              button(type='submit', class='btn btn-primary') Delete
