@@ -21,3 +21,52 @@ block content
             div(class='form-group')
               input(type='hidden', name='sid', value=student.sid, class='form-control')
               button(type='submit', class='btn btn-primary') Delete
+  form(action='/addOrUpdateStudent', method='post', class='form-horizontal')
+    label(class='control-label col-md-2', for='sid') Student ID:
+    div(class='col-md-4 form-group')
+      input(type='text',
+            id='sid',
+            name='sid',
+            placeholder='Student ID',
+            class='form-control')
+
+    div(class='clearfix hidden-sm-up')
+
+    label(class='control-label col-md-2', for='firstName') First name:
+    div(class='col-md-4 form-group')
+      input(type='text',
+            id='firstName',
+            name='firstName',
+            placeholder='First name',
+            class='form-control')
+
+    div(class='clearfix hidden-sm-up')
+
+    label(class='control-label col-md-2', for='lastName') Last name:
+    div(class='col-md-4 form-group')
+      input(type='text',
+            id='lastName',
+            name='lastName',
+            placeholder='Last name',
+            class='form-control')
+
+    div(class='clearfix hidden-sm-up')
+
+    label(class='control-label col-md-2', for='gpa') GPA:
+    div(class='col-md-4 form-group')
+      input(type='text',
+            id='gpa',
+            name='gpa',
+            placeholder='GPA',
+            class='form-control')
+
+    div(class='clearfix hidden-sm-up')
+
+    div(class='col-md-offset-2 col-md-1')
+      button(type='submit', class='btn btn-primary') Insert or Update
+
+
+
+
+
+  
