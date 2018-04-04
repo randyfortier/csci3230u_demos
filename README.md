@@ -41,3 +41,9 @@ This repository is meant to be a place where students can access demos done in t
 ## 09 - MongoDB and Mongoose
 
 - adding data storage and retrieval to the templating Node.js example
+
+## 11 - WebGL
+
+- demo showing a simple (2D) triangle
+- demo showing a vertex-coloured (3d) triangle
+- demo showing a face-coloured cube

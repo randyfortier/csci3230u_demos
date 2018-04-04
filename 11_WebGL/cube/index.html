@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>WebGL Example - Cube</title>
+  <script type="text/javascript" src="scripts/MV.js"></script>
+	<script type="text/javascript" src="scripts/utils.js"></script>
   <script id="vshader" type='x-shader'>
 attribute vec3 position;
 attribute vec4 colour;
@@ -43,7 +45,6 @@ void main() {
       vec4( 0.5, -0.5, -0.5, 1.0)
     ];
 
-    //var vertexPositions = [-0.5, -0.5, 0.5, -0.5, 0, 0.5];
     var vertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
@@ -58,32 +59,9 @@ void main() {
     program.vertexPosAttrib = gl.getAttribLocation(program, 'position');
     gl.enableVertexAttribArray(program.vertexPosAttrib);
     gl.vertexAttribPointer(program.vertexPosAttrib,
-                           2, gl.FLOAT, false, 0, 0);
+                           3, gl.FLOAT, false, 0, 0);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    function createShader(code, type) {
-      var shader = gl.createShader(type);
-      gl.shaderSource(shader, code);
-      gl.compileShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        throw gl.getShaderInfoLog(shader);
-      }
-      return shader;
-    }
-
-    function createProgram(vshaderCode, fshaderCode) {
-      var program = gl.createProgram();
-      var vshader = createShader(vshaderCode, gl.VERTEX_SHADER);
-      var fshader = createShader(fshaderCode, gl.FRAGMENT_SHADER);
-      gl.attachShader(program, vshader);
-      gl.attachShader(program, fshader);
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        throw gl.getProgramInfoLog(program);
-      }
-      return program;
-    }
   </script>
 </body>
 

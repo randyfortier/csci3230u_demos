@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebGL Example - Colourful Triangle</title>
+  <script type="text/javascript" src="scripts/MV.js"></script>
+  <script type="text/javascript" src="scripts/utils.js"></script>
+  <script id="vshader" type='x-shader'>
+attribute vec3 position;
+attribute vec4 colour;
+
+varying vec4 vColour;
+
+void main() {
+  vColour = colour;
+  gl_Position = vec4(position, 1.0);
+}
+  </script>
+  <script id="fshader" type='x-shader'>
+precision mediump float;
+
+varying vec4 vColour;
+
+void main() {
+  gl_FragColor = vColour;
+}
+  </script>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var gl = canvas.getContext('experimental-webgl');
+
+    gl.clearColor(0.25, 0.25, 0.25, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    var numVertices = 3;
+
+    // vertex positions
+    var vertexPositions = [
+      -0.5, -0.5, 0.0, 1.0,    // bottom left
+       0.5, -0.5, 0.0, 1.0,    // bottom right
+       0.0,  0.5, 0.0, 1.0     // top centre
+    ];
+
+    // vertex colours
+    var vertexColours = [
+      1.0, 0.0, 0.0, 1.0,   // red
+      0.0, 1.0, 0.0, 1.0,   // green
+      0.0, 0.0, 1.0, 1.0    // blue
+    ];
+
+    var vshader = document.getElementById('vshader');
+    var fshader = document.getElementById('fshader');
+
+    var program = createProgram(vshader.textContent, fshader.textContent);
+    gl.useProgram(program);
+
+    // create a colour buffer
+    var cBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertexColours), gl.STATIC_DRAW);
+
+    // map the colour data to a vertex shader attribute (called 'colour')
+    var vColour = gl.getAttribLocation(program, "colour");
+    gl.vertexAttribPointer(vColour, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vColour);
+
+    // create a vertex buffer
+    var vBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertexPositions), gl.STATIC_DRAW);
+    vBuffer.itemSize = 4;
+
+    // map the vertex data to a vertex shader attribute (called 'position')
+    var vPosition = gl.getAttribLocation(program, "position");
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vPosition);
+
+    // draw our shape
+    gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+  </script>
+</body>
+
+</html>
