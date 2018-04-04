@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebGL Example</title>
+  <script id="vshader" type='x-shader'>
+attribute vec2 position;
+
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+  </script>
+  <script id="fshader" type='x-shader'>
+precision mediump float;
+
+void main() {
+  gl_FragColor = vec4(0.31, 0.5, 0.75, 1.0);
+}
+  </script>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var gl = canvas.getContext('experimental-webgl');
+
+    gl.clearColor(0.25, 0.25, 0.25, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    var vertexPositions = [-0.5, -0.5, 0.5, -0.5, 0, 0.5];
+    var vertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+
+    var vshader = document.getElementById('vshader');
+    var fshader = document.getElementById('fshader');
+
+    var program = createProgram(vshader.textContent, fshader.textContent);
+    gl.useProgram(program);
+
+    // map the vertex position data to the attribute of the shader
+    program.vertexPosAttrib = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(program.vertexPosAttrib);
+    gl.vertexAttribPointer(program.vertexPosAttrib,
+                           2, gl.FLOAT, false, 0, 0);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    function createShader(code, type) {
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, code);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        throw gl.getShaderInfoLog(shader);
+      }
+      return shader;
+    }
+
+    function createProgram(vshaderCode, fshaderCode) {
+      var program = gl.createProgram();
+      var vshader = createShader(vshaderCode, gl.VERTEX_SHADER);
+      var fshader = createShader(fshaderCode, gl.FRAGMENT_SHADER);
+      gl.attachShader(program, vshader);
+      gl.attachShader(program, fshader);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        throw gl.getProgramInfoLog(program);
+      }
+      return program;
+    }
+  </script>
+</body>
+
+</html>

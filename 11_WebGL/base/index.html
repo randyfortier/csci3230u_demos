@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebGL Example</title>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <script type="text/javascript">
+
+    function createShader(code, type) {
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, code);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        throw gl.getShaderInfoLog(shader);
+      }
+      return shader;
+    }
+
+    function createProgram(vshaderCode, fshaderCode) {
+      var program = gl.createProgram();
+      var vshader = createShader(vshaderCode, gl.VERTEX_SHADER);
+      var fshader = createShader(fshaderCode, gl.FRAGMENT_SHADER);
+      gl.attachShader(program, vshader);
+      gl.attachShader(program, fshader);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        throw gl.getProgramInfoLog(program);
+      }
+      return program;
+    }
+  </script>
+</body>
+
+</html>
